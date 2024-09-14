@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="quiz-result-section">
+    <h1>Quiz Result</h1>
+    <p>You answered {{ correct_answers }} out of {{ total_questions }} questions correctly.</p>
+    
+    <div class="navigation">
+        <a href="{% url 'quiz' %}" class="btn btn-primary">Try Another Question</a>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Return to Home</a>
+    </div>
+</div>
+{% endblock %}

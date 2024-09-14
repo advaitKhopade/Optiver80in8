@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <div class="home-section">
+        <h2>Welcome to Optiver Mental Math Practice</h2>
+        <p>This platform is designed to help you practice mental math skills, especially for the Optiver 80 in 8 test.</p>
+
+        <div class="credentials-feedback">
+            <div class="credentials">
+                <h3>About Me</h3>
+                <p>Name: Advait Khopade</p>
+                <p>Email: <a href="mailto:advk2903@gmail.com">advk2903@gmail.com</a></p>
+                <p>LinkedIn: <a href="https://linkedin.com/in/advaitkhopade" target="_blank">linkedin.com/in/advaitkhopade</a></p>
+            </div>
+
+            <div class="feedback-section">
+                <h3>Feedback</h3>
+                <form method="POST">
+                    {% csrf_token %}
+                    <label for="comment">Leave your feedback:</label><br>
+                    <textarea id="comment" name="comment" rows="4" cols="50" required></textarea><br>
+                    <button type="submit">Submit Feedback</button>
+                </form>
+            </div>
+        </div>
+
+        <h3>Get Started</h3>
+        <p><a href="{% url 'quiz' %}" class="btn">Start Quiz</a></p>
+    </div>
+{% endblock %}

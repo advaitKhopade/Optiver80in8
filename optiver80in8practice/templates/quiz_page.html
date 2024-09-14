@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Question</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/quiz/">Quiz</a></li>
+            </ul>
+        </nav>
+        <h1>Optiver Mental Math Practice</h1>
+    </header>
+
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <div class="question-counter">
+                <span>{{ current_question }}/80</span>
+            </div>
+            <div class="timer">
+                <span>Time left: <span id="time">{{ time_left }}</span></span>
+            </div>
+        </div>
+        <div class="question">
+            <h2>{{ question }}</h2>
+        </div>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="options-grid">
+                {% for option in options %}
+                <div class="option">
+                    <input type="radio" name="option" value="{{ option }}" id="option{{ forloop.counter }}" required>
+                    <label for="option{{ forloop.counter }}">{{ option }}</label>
+                </div>
+                {% endfor %}
+            </div>
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        // Countdown Timer
+        const timeElement = document.getElementById('time');
+        let timeLeft = parseInt(timeElement.textContent);
+        const countdown = setInterval(() => {
+            if (timeLeft > 0) {
+                timeLeft -= 1;
+                timeElement.textContent = timeLeft;
+            } else {
+                clearInterval(countdown);
+                alert("Time's up!");
+                document.querySelector('form').submit();
+            }
+        }, 1000);
+
+        // Prevent moving to the next question without selecting an option
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(event) {
+            const selectedOption = document.querySelector('input[name="option"]:checked');
+            if (!selectedOption) {
+                event.preventDefault();
+                alert('Please select an option before submitting.');
+            }
+        });
+    </script>
+</body>
+</html>
