@@ -3,7 +3,7 @@
 import os
 import sys
 
-
+"""My comment"""
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'optiver80in8practice.settings')
